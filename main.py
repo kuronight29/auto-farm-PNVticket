@@ -7,21 +7,22 @@ from webserver import keep_alive
 
 import os
 
-prefix = "-"
-
-keep_alive()
-token = (os.environ['TOKEN'])
-
+prefix = ('-')
+token = os.getenv('Token')
 
 bot = commands.Bot(command_prefix=prefix,
                    help_command=None,
                    case_insensitive=True,
                    self_bot=True)
 
-@bot.command(pass_context=True)
-async def farm(ctx):
+@bot.event
+async def on_ready():
+    print("Online!")
+
+@bot.command()
+async def farm(ctx, prefix):
     await ctx.message.delete()
-    await ctx.send('auto farm **enabled**!')
+    await ctx.send('.diemdanh')
     global dmcs
     dmcs = True
     while dmcs:
@@ -32,5 +33,4 @@ async def farm(ctx):
             await ctx.send('.thuhoach')
             await ctx.send('.chatgo')
 
-keep_alive()
 bot.run(token, bot=False)
